@@ -1,3 +1,7 @@
+use std::fs::File;
+use serde_json::json;
+use std::io::Write;
+
 pub fn part_one(input: &String) -> i32 {
     let mut count = 0;
     let input_as_chars: Vec<char> = input.trim().chars().collect();
@@ -21,6 +25,36 @@ pub fn part_two(input: &String) -> i32 {
         }
     }
     position
+}
+
+pub fn to_json() -> std::io::Result<()> {
+    let john = json!({
+  "base": {"element": {"rectangle": [50,50,20,20]}},
+  "frames": [
+    {
+      "element": {
+        "rectangle":[100,100,30,30],
+        "color": "#009900"
+      },
+    },
+    {
+      "element": {
+        "rectangle":[150,150,30,30],
+        "color": "#000000"
+      },
+    },
+    {
+      "element": {
+        "rectangle":[180,100,40,30],
+        "color": "#000099"
+      },
+    },
+  ]
+});
+    let json = john.to_string();
+    let path = "results.txt";
+    let mut output = File::create(path)?;
+    write!(output, "{}", json)
 }
 
 #[cfg(test)]
