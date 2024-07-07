@@ -30,10 +30,10 @@ fn anchor_coords(n: i32, depth: u32) -> Point {
 fn offset_coords(n: i32) -> Point {
     let root = (n as f64).sqrt();
     let floor = root.floor() as i32;
-    let root = root as i32;
+    let fraction = root.fract();
 
     // number is an integer square root
-    if root % 1 == 0 {
+    if fraction == 0.0_f64 {
         return anchor_coords(floor, 0);
     }
 
@@ -77,7 +77,7 @@ pub fn part_two() -> i32 {
 
 #[cfg(test)]
 mod tests {
-    use super::{run, anchor_coords, offset_coords};
+    use super::{run, anchor_coords, offset_coords, part_one};
     use super::Point;
 
     #[test]
@@ -117,5 +117,10 @@ mod tests {
         // assert_eq!(Point(2, 1),     offset_coords(12));
         // assert_eq!(Point(2, 0),     offset_coords(11));
         // assert_eq!(Point(2, -1),    offset_coords(10));
+    }
+
+    #[test]
+    fn test_3() {
+        assert_eq!(326, part_one())
     }
 }
