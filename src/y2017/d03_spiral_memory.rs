@@ -1,7 +1,20 @@
+use std::collections::HashMap;
+
 const INPUT : &'static str = "361527";
 const PORT : &'static Point = &Point(0, 0);
+const NEIGHBORS: [Point; 8] = [
+    Point(1, 0),
+    Point(1, -1),
+    Point(0, -1),
+    Point(-1, -1),
+    Point(-1, 0),
+    Point(-1, 1),
+    Point(0, 1),
+    Point(1, 1)
+];
 
-#[derive(PartialEq, Debug)]
+
+#[derive(PartialEq, Eq, Hash, Debug)]
 struct Point(i32, i32);
 
 impl Point {
@@ -72,12 +85,42 @@ pub fn part_one() -> i32 {
 }
 
 pub fn part_two() -> i32 {
-    0
+    let target: i32 = parse(INPUT);
+    let mut x = 0;
+    let mut y = 0;
+    let mut dx = 0;
+    let mut dy = -1;
+    let mut grid : HashMap<Point, i32> = HashMap::new();
+
+    loop {
+        let mut total = 0;
+        for offset in NEIGHBORS {
+            let something = Point(x + offset.0, y + offset.1);
+            if grid.contains_key(&something) {
+                total += grid[&something];
+            }
+        }
+
+        if total > target {
+            return total
+        }
+
+        if Point(x, y) == *PORT {
+            grid.insert(Point(0,0), 1);
+        } else {
+            grid.insert(Point(x,y), total);
+        }
+        if (x == y) || (x < 0 && x == -y) || (x > 0 && x == 1 - y) {
+            (dx, dy) = (-dy, dx);
+        }
+        x += dx;
+        y += dy;
+    }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{run, anchor_coords, offset_coords, part_one};
+    use super::{run, anchor_coords, offset_coords, part_one, part_two};
     use super::Point;
 
     #[test]
@@ -106,21 +149,26 @@ mod tests {
     #[test]
     fn test_2() {
         assert_eq!(Point(1,-1), offset_coords(9));
-        // assert_eq!(Point(0, -1), offset_coords(8));
-        // assert_eq!(Point(-1, -1),   offset_coords(7));
-        // assert_eq!(Point(-1, 0),    offset_coords(6));
-        // assert_eq!(Point(-1, 1),    offset_coords(5));
-        // assert_eq!(Point(0, 1),     offset_coords(4));
-        // assert_eq!(Point(0, 2),     offset_coords(15));
-        // assert_eq!(Point(1, 2),     offset_coords(14));
-        // assert_eq!(Point(2, 2),     offset_coords(13));
-        // assert_eq!(Point(2, 1),     offset_coords(12));
-        // assert_eq!(Point(2, 0),     offset_coords(11));
-        // assert_eq!(Point(2, -1),    offset_coords(10));
+        assert_eq!(Point(0, -1), offset_coords(8));
+        assert_eq!(Point(-1, -1),   offset_coords(7));
+        assert_eq!(Point(-1, 0),    offset_coords(6));
+        assert_eq!(Point(-1, 1),    offset_coords(5));
+        assert_eq!(Point(0, 1),     offset_coords(4));
+        assert_eq!(Point(0, 2),     offset_coords(15));
+        assert_eq!(Point(1, 2),     offset_coords(14));
+        assert_eq!(Point(2, 2),     offset_coords(13));
+        assert_eq!(Point(2, 1),     offset_coords(12));
+        assert_eq!(Point(2, 0),     offset_coords(11));
+        assert_eq!(Point(2, -1),    offset_coords(10));
     }
 
     #[test]
     fn test_3() {
-        assert_eq!(326, part_one())
+        assert_eq!(326, part_one());
+    }
+
+    #[test]
+    fn test_4() {
+        assert_eq!(363010, part_two());
     }
 }
