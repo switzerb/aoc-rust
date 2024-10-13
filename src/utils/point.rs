@@ -1,4 +1,4 @@
-#[derive(PartialEq, Eq, Hash, Debug)]
+#[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub struct Point(pub(crate) i32, pub(crate) i32);
 pub enum Dir {
     North,
