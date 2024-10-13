@@ -4,8 +4,7 @@ use std::io::Write;
 
 pub fn part_one(input: &String) -> i32 {
     let mut count = 0;
-    let input_as_chars: Vec<char> = input.trim().chars().collect();
-    for c in input_as_chars {
+    for c in input.trim().chars() {
         if c == '(' { count += 1 }
         if c == ')' { count -= 1 }
     }
@@ -15,8 +14,7 @@ pub fn part_one(input: &String) -> i32 {
 pub fn part_two(input: &String) -> i32 {
     let mut position = 0;
     let mut count = 0;
-    let input_as_chars: Vec<char> = input.trim().chars().collect();
-    for c in input_as_chars {
+    for c in input.trim().chars() {
         if c == '(' { count += 1 }
         if c == ')' { count -= 1 }
         position += 1;

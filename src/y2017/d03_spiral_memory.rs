@@ -27,7 +27,7 @@ fn anchor_coords(n: i32, depth: u32) -> Point {
     if n == 1 {
         return Point(0,0);
     }
-    return if n == 2 {
+    if n == 2 {
         Point(0, 1)
     } else {
         if n % 2 == 0 {
@@ -37,7 +37,7 @@ fn anchor_coords(n: i32, depth: u32) -> Point {
             let pos = anchor_coords(n - 1, depth);
             Point(pos.0.abs() + 1, -pos.1)
         }
-    };
+    }
 }
 
 fn offset_coords(n: i32) -> Point {
@@ -55,13 +55,13 @@ fn offset_coords(n: i32) -> Point {
     let anchor = anchor_coords(ceil, 0);
     let turn = floor.pow(2) + floor;
     if ceil % 2 == 0 { // even
-        return if turn < n {
+        if turn < n {
             Point(anchor.0 + offset, anchor.1)
         } else {
             Point(anchor.0 + floor, anchor.1 - (offset - floor))
         }
     } else { //odd
-        return if turn < n {
+        if turn < n {
             Point(anchor.0 - offset, anchor.1)
         } else {
             Point(anchor.0 - floor, anchor.1 + (offset - floor))
