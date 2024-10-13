@@ -59,16 +59,16 @@ fn parse(input: &String) -> Vec<Present> {
 
 pub fn part_one(input: &String) -> i32 {
     let presents = parse(input);
-    return presents
+    presents
         .iter()
-        .fold(0, |acc, it| acc + it.area() + it.smallest_area());
+        .fold(0, |acc, it| acc + it.area() + it.smallest_area())
 }
 
 pub fn part_two(input: &String) -> i32 {
     let presents = parse(input);
-    return presents
+    presents
         .iter()
-        .fold(0, |acc, it| acc + it.volume() + it.smallest_perimeter());
+        .fold(0, |acc, it| acc + it.volume() + it.smallest_perimeter())
 }
 
 #[cfg(test)]
