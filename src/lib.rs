@@ -4,6 +4,7 @@ use std::io::ErrorKind;
 
 pub mod y2015;
 pub mod y2017;
+pub mod utils;
 
 pub fn load_file(path: &str) -> String {
     let open = File::open(path);

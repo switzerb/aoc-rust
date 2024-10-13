@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use crate::utils::point::Point;
 
 const INPUT : &'static str = "361527";
 const PORT : &'static Point = &Point(0, 0);
@@ -12,16 +13,6 @@ const NEIGHBORS: [Point; 8] = [
     Point(0, 1),
     Point(1, 1)
 ];
-
-
-#[derive(PartialEq, Eq, Hash, Debug)]
-struct Point(i32, i32);
-
-impl Point {
-    fn manhattan_distance(&self, other: &Point) -> i32 {
-        return (self.0 - other.0).abs() + (self.1 - other.1).abs();
-    }
-}
 
 fn anchor_coords(n: i32, depth: u32) -> Point {
     if n == 1 {
