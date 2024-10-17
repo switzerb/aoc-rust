@@ -2,9 +2,10 @@ use std::fs;
 use std::fs::File;
 use std::io::ErrorKind;
 
-pub mod y2015;
-pub mod y2017;
 pub mod utils;
+pub mod y2015;
+pub mod y2016;
+pub mod y2017;
 
 pub fn load_file(path: &str) -> String {
     let open = File::open(path);
@@ -22,7 +23,6 @@ pub fn load_file(path: &str) -> String {
         },
     };
 
-    let input  = fs::read_to_string(path)
-        .expect("Should have been able to read the file");
+    let input = fs::read_to_string(path).expect("Should have been able to read the file");
     return input;
 }
